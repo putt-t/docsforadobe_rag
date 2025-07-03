@@ -4,72 +4,61 @@
 
 #### Description
 
-The project object represents an After Effects project. Attributes provide access to specific objects within the project, such as imported files or footage and compositions, and also to project settings such as the timecode base. Methods can import footage, create solids, compositions and folders, and save changes.
+Represents a Premiere Pro project. As of Premiere Pro 12.0, multiple projects may be open at the same time.
 
 ---
 
 ## Attributes
 
-### Project.activeItem
+### Project.activeSequence
 
-`app.project.activeItem`
+`app.project.activeSequence`
 
 #### Description
 
-The item that is currently active and is to be acted upon, or `null` if no item is currently selected or if multiple items are selected.
+The currently active [Sequence object](../sequence/sequence.md), within the project.
 
 #### Type
 
-[Item object](../item/item.md) or `null`; read-only.
+A [Sequence object](../sequence/sequence.md), or `0` if no sequence is currently active.
 
 ---
 
-### Project.bitsPerChannel
+### Project.cloudProjectlocalID
 
-`app.project.bitsPerChannel`
+`app.project.cloudProjectlocalID`
 
 #### Description
 
-The color depth of the current project, either 8, 16, or 32 bits.
+The ID of cloud project.
 
 #### Type
 
-Integer (8, 16, or 32 only); read/write.
+String; read/only.
 
 ---
 
-### Project.compensateForSceneReferredProfiles
+### Project.documentID
 
-`app.project.compensateForSceneReferredProfiles`
-
-!!! note
-    This functionality was added in After Effects 16.0 (CC 2019)
+`app.project.documentID`
 
 #### Description
 
-`true` if Compensate for Scene-referred Profiles should be enabled for this project; otherwise `false`.
+A unique identifier for this project, in format of `xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx`.
 
 #### Type
 
-Boolean; read/write.
+String; read-only.
 
 ---
 
-### Project.dirty
+### Project.isCloudProject
 
-`app.project.dirty`
-
-!!! note
-    This functionality was added in After Effects 17.5 (CC2020).
-
-!!! warning
-    This method/property is officially undocumented and was found via research. The information here may be inaccurate, and this whole method/property may disappear or stop working some point. Please contribute if you have more information on it!
+`app.project.isCloudProject`
 
 #### Description
 
-`true` if the project has been modified from the last save; otherwise `false`.
-
-"Dirty" projects will have an `*` in the project window title.
+Check whether the project is cloud project.
 
 #### Type
 
@@ -77,771 +66,131 @@ Boolean; read-only.
 
 ---
 
-### Project.displayStartFrame
+### Project.name
 
-`app.project.displayStartFrame`
+`app.project.name`
 
 #### Description
 
-An alternate way of setting the Frame Count menu setting in the Project Settings dialog box to 0 or 1, and is equivalent to using the `FramesCountType.FC_START_0` or `FramesCountType.FC_START_1` enumerated values for the [framesCountType](#projectframescounttype).
+The name of the project.
 
 #### Type
 
-Integer (0 or 1); read/write.
+String; read-only.
 
 ---
 
-### Project.expressionEngine
+### Project.path
 
-`app.project.expressionEngine`
-
-!!! note
-    This functionality was added in After Effects 16.0 (CC 2019)
+`app.project.path`
 
 #### Description
 
-The Expressions Engine setting in the Project Settings dialog box, as a string. One of:
-
-- `extendscript`
-- `javascript-1.0`
+The file path of the project.
 
 #### Type
 
-String; read/write.
-
----
-
-### Project.feetFramesFilmType
-
-`app.project.feetFramesFilmType`
-
-#### Description
-
-The Use Feet + Frames menu setting in the Project Settings dialog box. Use this attribute instead of the old `timecodeFilmType` attribute.
-
-#### Type
-
-A `FeetFramesFilmType` enumerated value; read/write. One of:
-
-- `FeetFramesFilmType.MM16`
-- `FeetFramesFilmType.MM35`
-
----
-
-### Project.file
-
-`app.project.file`
-
-#### Description
-
-The [Extendscript File](https://extendscript.docsforadobe.dev/file-system-access/file-object.html) object for the file containing the project that is currently open.
-
-#### Type
-
-[File](https://extendscript.docsforadobe.dev/file-system-access/file-object.html) object or `null` if project has not been saved; read-only.
-
----
-
-### Project.footageTimecodeDisplayStartType
-
-`app.project.footageTimecodeDisplayStartType`
-
-#### Description
-
-The Footage Start Time setting in the Project Settings dialog box, which is enabled when Timecode is selected as the time display style.
-
-#### Type
-
-A `FootageTimecodeDisplayStartType` enumerated value; read/write. One of:
-
-- `FootageTimecodeDisplayStartType.FTCS_START_0`
-- `FootageTimecodeDisplayStartType.FTCS_USE_SOURCE_MEDIA`
-
----
-
-### Project.framesCountType
-
-`app.project.framesCountType`
-
-#### Description
-
-The Frame Count menu setting in the Project Settings dialog box.
-
-#### Type
-
-A `FramesCountType` enumerated value; read/write. One of:
-
-- `FramesCountType.FC_START_1`
-- `FramesCountType.FC_START_0`
-- `FramesCountType.FC_TIMECODE_CONVERSION`
-
-!!! warning
-    Setting this attribute to `FramesCountType.FC_TIMECODE_CONVERSION` resets the `displayStartFrame` attribute to 0.
-
----
-
-### Project.framesUseFeetFrames
-
-`app.project.framesUseFeetFrames`
-
-#### Description
-
-The "Use Feet + Frames" setting in the Project Settings dialog box.
-
-`true` if using Feet + Frames; `false` if using Frames.
-
-#### Type
-
-Boolean; read/write.
-
----
-
-### Project.gpuAccelType
-
-`app.project.gpuAccelType`
-
-!!! note
-    This functionality was added in After Effects 13.8 (CC 2015.3)
-
-#### Description
-
-Get or set the current projects GPU Acceleration option.
-see [app.availableGPUAccelTypes](application.md#appavailablegpuacceltypes)
-
-#### Type
-
-A `GpuAccelType` enumerated value; read/write. One of:
-
-- `GpuAccelType.CUDA`
-- `GpuAccelType.Metal`
-- `GpuAccelType.OPENCL`
-- `GpuAccelType.SOFTWARE`
+String; read-only.
 
 #### Example
 
+Get a path of a curently active project
+
 ```javascript
-// access via scripting to Project Settings -> Video Rendering and Effects -> Use
-
-var currentGPUSettings = app.project.gpuAccelType; // returns the current value
-var type_str = "";
-
-// check the current value and alert the user
-
-switch (currentGPUSettings) {
-    case GpuAccelType.CUDA:
-        type_str = "CUDA";
-        break;
-    case GpuAccelType.METAL:
-        type_str = "Metal";
-        break;
-    case GpuAccelType.OPENCL:
-        type_str = "OpenCL";
-        break;
-    case GpuAccelType.SOFTWARE:
-        type_str = "Software";
-        break;
-    default:
-        type_str = "UNKNOWN";
-}
-
-alert("Your current setting is " + type_str);
-
-// set the value to Metal
-app.project.gpuAccelType = GpuAccelType.METAL;
+app.project.path; // /Users/USERNAME/Desktop/Project.prproj
 ```
 
 ---
 
-### Project.items
+### Project.rootItem
 
-`app.project.items`
+`app.project.rootItem`
 
 #### Description
 
-All of the items in the project.
+A [ProjectItem object](../item/projectitem.md) representing the "root" of the project.
 
 #### Type
 
-[ItemCollection object](../item/itemcollection.md); read-only.
+A [ProjectItem object](../item/projectitem.md); this will always be of type `ProjectItemType_BIN`.
 
 ---
 
-### Project.linearBlending
+### Project.sequences
 
-`app.project.linearBlending`
-
-#### Description
-
-`true` if linear blending should be used for this project; otherwise `false`.
-
-#### Type
-
-Boolean; read/write.
-
----
-
-### Project.linearizeWorkingSpace
-
-`app.project.linearizeWorkingSpace`
-
-!!! note
-    This functionality was added in After Effects 16.0 (CC 2019)
+`app.project.sequences`
 
 #### Description
 
-`true` if Linearize Working Space should be enabled for this project; otherwise `false`.
+The sequences within the project.
 
 #### Type
 
-Boolean; read/write.
-
----
-
-### Project.numItems
-
-`app.project.numItems`
-
-#### Description
-
-The total number of items contained in the project, including folders and all types of footage.
-
-#### Type
-
-Integer; read-only.
-
-#### Example
-
-```javascript
-var numItems = app.project.numItems;
-alert("There are " + numItems + " items in this project.")
-```
-
----
-
-### Project.renderQueue
-
-`app.project.renderQueue`
-
-#### Description
-
-The [Render Queue](../renderqueue/renderqueue.md) of the project.
-
-
-#### Type
-
-[RenderQueue object](../renderqueue/renderqueue.md); read-only.
-
----
-
-### Project.revision
-
-`app.project.revision`
-
-#### Description
-
-The current revision of the project. Every user action increases the revision number. New project starts at revision 1.
-
-#### Type
-
-Integer; the current revision version of the project; read-only.
-
----
-
-### Project.rootFolder
-
-`app.project.rootFolder`
-
-#### Description
-
-The root folder containing the contents of the project; this is a virtual folder that contains all items in the Project panel, but not items contained inside other folders in the Project panel.
-
-#### Type
-
-[FolderItem object](../item/folderitem.md); read-only.
-
----
-
-### Project.selection
-
-`app.project.selection`
-
-#### Description
-
-All items selected in the Project panel, in the sort order shown in the Project panel.
-
-#### Type
-
-Array of [Item objects](../item/item.md); read-only.
-
----
-
-### Project.timeDisplayType
-
-`app.project.timeDisplayType`
-
-#### Description
-
-The time display style, corresponding to the Time Display Style section in the Project Settings dialog box.
-
-#### Type
-
-A `TimeDisplayType` enumerated value; read/write. One of:
-
-- `TimeDisplayType.FRAMES`
-- `TimeDisplayType.TIMECODE`
-
----
-
-### Project.toolType
-
-`app.project.toolType`
-
-!!! note
-    This functionality was added in After Effects 14.0 (CC 2017)
-
-#### Description
-
-Get and sets the active tool in the Tools panel.
-
-#### Type
-
-A `ToolType` enumerated value; read/write. One of:
-
-- `ToolType.Tool_Arrow`: Selection Tool
-- `ToolType.Tool_Rotate`: Rotation Tool
-- `ToolType.Tool_CameraMaya`: Unified Camera Tool
-- `ToolType.Tool_CameraOrbit`: Orbit Camera Tool
-- `ToolType.Tool_CameraTrackXY`: Track XY Camera Tool
-- `ToolType.Tool_CameraTrackZ`: Track Z Camera Tool
-- `ToolType.Tool_Paintbrush`: Brush Tool
-- `ToolType.Tool_CloneStamp`: Clone Stamp Tool
-- `ToolType.Tool_Eraser`: Eraser Tool
-- `ToolType.Tool_Hand`: Hand Tool
-- `ToolType.Tool_Magnify`: Zoom Tool
-- `ToolType.Tool_PanBehind`: Pan Behind (Anchor Point) Tool
-- `ToolType.Tool_Rect`: Rectangle Tool
-- `ToolType.Tool_RoundedRect`: Rounded Rectangle Tool
-- `ToolType.Tool_Oval`: Ellipse Tool
-- `ToolType.Tool_Polygon`: Polygon Tool
-- `ToolType.Tool_Star`: Star Tool
-- `ToolType.Tool_TextH`: Horizontal Type Tool
-- `ToolType.Tool_TextV`: Vertical Type Tool
-- `ToolType.Tool_Pen`: Pen Tool
-- `ToolType.Tool_Feather`: Mask Feather Tool
-- `ToolType.Tool_PenPlus`: Add Vertex Tool
-- `ToolType.Tool_PenMinus`: Delete Vertex Tool
-- `ToolType.Tool_PenConvert`: Convert Vertex Tool
-- `ToolType.Tool_Pin`: Puppet Pin Tool
-- `ToolType.Tool_PinStarch`: Puppet Starch Tool
-- `ToolType.Tool_PinDepth`: Puppet Overlap Tool
-- `ToolType.Tool_Quickselect`: Roto Brush Tool
-- `ToolType.Tool_Hairbrush`: Refine Edge Tool
-
-#### Examples
-
-The following sample code checks the current tool, and if it is not the Unified Camera Tool, sets the current tool to that:
-
-```javascript
-// Check the current tool, then set it to Unified Camera Tool (UCT).
-// Assume a composition is selected in the project.
-var comp = app.project.activeItem;
-if (comp instanceof CompItem) {
-    // Add a camera to the current comp. (Requirement for UCT)
-    var cameraLayer = comp.layers.addCamera("Test Camera", [comp.width / 2, comp.height / 2]);
-    comp.openInViewer();
-
-    // If the currently selected tool is not one of the camera tools, set it to UCT.
-    if (( app.project.toolType !== ToolType.Tool_CameraMaya) &&
-        ( app.project.toolType !== ToolType.Tool_CameraOrbit ) &&
-        ( app.project.toolType !== ToolType.Tool_CameraTrackXY) &&
-        ( app.project.toolType !== ToolType.Tool_CameraTrackZ)) {
-            app.project.toolType = ToolType.Tool_CameraMaya;
-        }
-}
-```
-
-The following sample code uses the new app.project.toolType attribute to create a 360-degrees composition (environment layer and camera) from a selected footage item or composition selected in the Project panel. This script a good starting point for building VR compositions from equirectangular footage:
-
-```javascript
-// Create a 360 VR comp from a footage item or comp selected in the Project panel.
-
-var item = app.project.activeItem;
-if (item !== null && (item.typeName === "Footage" || item.typeName === "Composition")) {
-    // Create a comp with the footage.
-    var comp = app.project.items.addComp(item.name, item.width, item.height, item.pixelAspect, item.duration, item.frameRate);
-    var layers = comp.layers;
-    var footageLayer = layers.add(item);
-
-    // Apply the CC Environment effect and create a camera.
-    var effect = footageLayer.Effects.addProperty("CC Environment");
-    var camera = layers.addCamera("360 Camera", [item.width / 2, item.height / 2]);
-    comp.openInViewer();
-    app.project.toolType = ToolType.Tool_CameraMaya;
-} else {
-    alert("Select a single footage item or composition in the Project panel.");
-}
-```
-
----
-
-### Project.transparencyGridThumbnails
-
-`app.project.transparencyGridThumbnails`
-
-#### Description
-
-When `true`, thumbnail views use the transparency checkerboard pattern.
-
-#### Type
-
-Boolean; read/write.
-
----
-
-### Project.usedFonts
-
-`app.project.usedFonts`
-
-!!! note
-    This functionality was added in After Effects 24.5
-
-#### Description
-
-Returns an Array of Objects containing references to used fonts and the Text Layers and times on which they appear in the current [Project](#project-object).
-
-Each object is composed of `font` which is a [Font object](../text/fontobject.md), and `usedAt` which is an Array of Objects, each composed of `layerID`, a [Layer.id](../layer/layer.md#layerid), and `layerTimeD` for when. See [Project.layerByID()](#projectlayerbyid) to retrieve the layers.
-
-```javascript
-var usedList = app.project.usedFonts;
-if (usedList.length) {
-    var font = usedList[0].font;
-    var usedAt = usedList[0].usedAt;
-
-    var str = "[0]:" + font.postScriptName + "\n";
-    for (var i = 0; i < usedAt.length; i++) {
-        var layerID = usedAt[i].layerID;
-        // valueAtTime() for Source Text property is expecting timed
-        // to be in Layer Time instead of Comp Time, unlike any of
-        // the other properties. So we have adjusted the name returned
-        // by usedFonts to make this clear as we expect that is where
-        // it will be used next.
-        var layerTimeD = usedAt[i].layerTimeD;
-
-        var layer = app.project.layerByID(layerID);
-        str += "    Layer:'" + String(layer.property("Source Text").valueAtTime(layerTimeD, false)) + "'\n";
-    }
-    alert(str);
-}
-```
-
-#### Type
-
-Array of Objects; read-only.
-
----
-
-### Project.workingGamma
-
-`app.project.workingGamma`
-
-#### Description
-
-The current project's working gamma value, either 2.2 or 2.4.
-
-Setting values other than 2.2 or 2.4 will cause a scripting error.
-
-!!! tip
-    When the project's color working space is set, the working gamma value is ignored by After Effects.
-
-#### Type
-
-`2.2` or `2.4`; read/write.
-
-#### Examples
-
-* To set the working gamma to 2.4 (Rec. 709): `app.project.workingGamma = 2.4;`
-* To get the current working gamma: `var currentGamma = app.project.workingGamma;`
-
----
-
-### Project.workingSpace
-
-`app.project.workingSpace`
-
-#### Description
-
-A string which is the color profile description for the project's color working space. To set the working space to None, set `workingSpace` to an empty string.
-
-Use `app.project.listColorProfiles()` to return an array of available color profile descriptions that can be used to set the color working space.
-
-#### Type
-
-String; read/write.
-
-#### Examples
-
-* To set the working space to Rec.709 Gamma 2.4: `app.project.workingSpace = "Rec.709 Gamma 2.4";`
-* To set the working space to None: `app.project.workingSpace = "";`
-* To get the current working space: `var currentSpace = app.project.workingSpace;`
-
----
-
-### Project.xmpPacket
-
-`app.project.xmpPacket`
-
-#### Description
-
-The project's XMP metadata, stored as RDF (XML-based). For more information on XMP, see the [JavaScript Tools Guide](https://extendscript.docsforadobe.dev/).
-
-#### Type
-
-String; read/write.
-
-#### Example
-
-The following example code accesses the XMP metadata of the current project, and modifies the Label project metadata field.
-
-```javascript
-var proj = app.project;
-
-// load the XMPlibrary as an ExtendScript ExternalObject
-if (ExternalObject.AdobeXMPScript === undefined){
-    ExternalObject.AdobeXMPScript = new ExternalObject('lib:AdobeXMPScript');
-}
-var mdata = new XMPMeta(app.project.xmpPacket); //get the project's XMPmetadata
-// update the Label project metadata's value
-var schemaNS = XMPMeta.getNamespaceURI("xmp");
-var propName = "xmp:Label";
-try{
-    mdata.setProperty(schemaNS, propName, "finalversion...no, really!");
-} catch (e) {
-    alert(e);
-}
-
-app.project.xmpPacket = mdata.serialize();
-```
+[SequenceCollection object](../collection/sequencecollection.md), read-only.
 
 ---
 
 ## Methods
 
-### Project.autoFixExpressions()
+### Project.addPropertyToProjectMetadataSchema()
 
-`app.project.autoFixExpressions(oldText, newText)`
+`app.project.addPropertyToProjectMetadataSchema(propertyName, propertyLabel, propertyType)`
 
 #### Description
 
-Automatically replaces text found in broken expressions in the project, if the new text causes the expression to evaluate without errors.
+Adds a new field of the specified type to Premiere Pro's private project metadata schema.
 
 #### Parameters
 
-| Parameter |  Type  |     Description      |
-| --------- | ------ | -------------------- |
-| `oldText` | String | The text to replace. |
-| `newText` | String | The new text.        |
++-----------------+---------+----------------------------------+
+|    Parameter    |  Type   |           Description            |
++=================+=========+==================================+
+| `propertyName`  | String  | A name of property to be added.  |
++-----------------+---------+----------------------------------+
+| `propertyLabel` | String  | A label of property to be added. |
++-----------------+---------+----------------------------------+
+| `propertyType`  | Integer | Must be one of the following:    |
+|                 |         |                                  |
+|                 |         | - `0` - Integer                  |
+|                 |         | - `1` - `Real`                   |
+|                 |         | - `2` - String                   |
+|                 |         | - `3` - Boolean                  |
++-----------------+---------+----------------------------------+
 
 #### Returns
 
-Nothing.
+Returns `true` if successful, `undefined` if unsuccessful.
 
 ---
 
-### Project.close()
+### Project.closeDocument()
 
-`app.project.close(closeOptions)`
+`app.project.closeDocument(saveFirst, promptIfDirty)`
 
 #### Description
 
-Closes the project with the option of saving changes automatically, prompting the user to save changes or closing without saving changes.
+Closes this project.
 
 #### Parameters
 
-+----------------+---------------------+-------------------------------------------------------------------------------------------+
-|   Parameter    |        Type         |                                        Description                                        |
-+================+=====================+===========================================================================================+
-| `closeOptions` | `CloseOptions` enum | Action to be performed on close. One of:                                                  |
-|                |                     |                                                                                           |
-|                |                     | - `CloseOptions.DO_NOT_SAVE_CHANGES`: Close without saving.                               |
-|                |                     | - `CloseOptions.PROMPT_TO_SAVE_CHANGES`: Prompt for whether to save changes before close. |
-|                |                     | - `CloseOptions.SAVE_CHANGES`: Save automatically on close.                               |
-+----------------+---------------------+-------------------------------------------------------------------------------------------+
+|    Parameter    |  Type   |                               Description                               |
+| --------------- | ------- | ----------------------------------------------------------------------- |
+| `saveFirst`     | Integer | If `1`, the project will be saved before closing.                       |
+| `promptIfDirty` | Integer | If `1`, the user will be asked whether they want to save changes first. |
 
 #### Returns
 
-Boolean. `true` on success. `false` if the file has not been previously saved, the user is prompted, and the user cancels the save.
+Returns `0` if successful.
 
 ---
 
-### Project.consolidateFootage()
+### Project.consolidateDuplicates()
 
-`app.project.consolidateFootage()`
-
-#### Description
-
-Consolidates all footage in the project. Same as the File > Consolidate All Footage command.
-
-#### Parameters
-
-None.
-
-#### Returns
-
-Integer; the total number of footage items removed.
-
----
-
-### Project.importFile()
-
-`app.project.importFile(importOptions)`
+`app.project.consolidateDuplicates()`
 
 #### Description
 
-Imports the file specified in the specified ImportOptions object, using the specified options. Same as the File > Import File command.
-
-Creates and returns a new FootageItem object from the file, and adds it to the project's items array.
-
-#### Parameters
-
-|    Parameter    |                    Type                    |                               Description                                |
-| --------------- | ------------------------------------------ | ------------------------------------------------------------------------ |
-| `importOptions` | [ImportOptions](../other/importoptions.md) | Options specifying the file to import and the options for the operation. |
-
-#### Returns
-
-[FootageItem object](../item/footageitem.md).
-
-#### Example
-
-```javascript
-app.project.importFile(new ImportOptions(new File("sample.psd"));
-```
-
----
-
-### Project.importFileWithDialog()
-
-`app.project.importFileWithDialog()`
-
-#### Description
-
-Shows an Import File dialog box. Same as the File > Import > File command.
-
-#### Returns
-
-Array of [Item objects](../item/item.md) created during import; or `null` if the user cancels the dialog box.
-
----
-
-### Project.importPlaceholder()
-
-`app.project.importPlaceholder(name, width, height, frameRate, duration)`
-
-#### Description
-
-Creates and returns a new PlaceholderItem and adds it to the project's items array. Same as the File > Import > Placeholder command.
-
-#### Parameters
-
-|  Parameter  |                        Type                         |                 Description                 |
-| ----------- | --------------------------------------------------- | ------------------------------------------- |
-| `name`      | String                                              | The name of the placeholder.                |
-| `width`     | Integer, in the range `[4..30000]`                  | The width of the placeholder in pixels.     |
-| `height`    | Integer, in the range `[4..30000]`                  | The height of the placeholder in pixels.    |
-| `frameRate` | Floating-point value, in the range `[1.0..99.0]`    | The frame rate of the placeholder.          |
-| `duration`  | Floating-point value, in the range `[0.0..10800.0]` | The duration of the placeholder in seconds. |
-
-#### Returns
-
-PlaceholderItem object.
-
----
-
-### Project.item()
-
-`app.project.item(index)`
-
-#### Description
-
-Retrieves an item at a specified index position.
-
-#### Parameters
-
-| Parameter |  Type   |                          Description                          |
-| --------- | ------- | ------------------------------------------------------------- |
-| `index`   | Integer | The index position of the item. The first item is at index 1. |
-
-#### Returns
-
-[Item object](../item/item.md).
-
----
-
-### Project.itemByID()
-
-`app.project.itemByID(id)`
-
-!!! note
-    This functionality was added in After Effects 13.0 (CC 2014)
-
-#### Description
-
-Retrieves an item by its [Item ID](../item/item.md#itemid)
-
-#### Parameters
-
-| Parameter |  Type   |    Description    |
-| --------- | ------- | ----------------- |
-| `id`      | Integer | The ID of an item |
-
-#### Returns
-
-[Item object](../item/item.md).
-
----
-
-### Project.layerByID()
-
-`app.project.layerByID(id)`
-
-!!! note
-    This functionality was added in After Effects 22.0 (2022)
-
-#### Description
-
-Instance method on Project which, when given a valid ID value, returns the Layer object in the Project with that given ID.
-
-#### Parameters
-
-| Parameter |          Type          |                      Description                      |
-| --------- | ---------------------- | ----------------------------------------------------- |
-| `id`      | Integer (non-negative) | The ID of the Layer to be retrieved from the Project. |
-
-#### Returns
-
-[Layer object](../layer/layer.md) with the given ID if it exists on the project; otherwise null. Non-valid IDs will throw an exception stating that the input parameter is not an unsigned integer.
-
-#### Example
-
-```javascript
-var firstComp = app.project.item(1);
-var firstLayer = firstComp.layer(1);
-var layerID = firstLayer.id;
-
-if (app.project.layerByID(layerID) === firstLayer) {
-    alert("You can get the Layer from the ID!");
-}
-```
-
----
-
-### Project.listColorProfiles()
-
-`app.project.listColorProfiles()`
-
-#### Description
-
-Returns an array of color profile descriptions that can be set as the project's color working space.
+Invokes Premiere Pro's "Consolidate Duplicate Footage" functionality, as available from the UI.
 
 #### Parameters
 
@@ -849,46 +198,183 @@ None.
 
 #### Returns
 
-Array of strings.
+Returns `0` if successful.
 
 ---
 
-### Project.reduceProject()
+### Project.createNewSequence()
 
-`app.project.reduceProject(array_of_items)`
+`app.project.createNewSequence(sequenceName, sequenceID)`
 
 #### Description
 
-Removes all items from the project except those specified. Same as the File > Reduce Project command.
+Creates a new [Sequence object](../sequence/sequence.md) with the specified ID.
 
 #### Parameters
 
-|    Parameter     |                   Type                   |      Description      |
-| ---------------- | ---------------------------------------- | --------------------- |
-| `array_of_items` | Array of [Item objects](../item/item.md) | The items to be kept. |
+|   Parameter    |  Type  |                  Description                   |
+| -------------- | ------ | ---------------------------------------------- |
+| `sequenceName` | String | A name of a sequence.                          |
+| `sequenceID`   | String | An uniquely identifying ID for a new sequence. |
 
 #### Returns
 
-Integer; the total number of items removed.
-
-#### Example
-
-```javascript
-var items = [];
-items[items.length] = app.project.item(1);
-items[items.length] = app.project.item(3);
-app.project.reduceProject(items);
-```
+Returns a [Sequence object](../sequence/sequence.md) if creation was successful, or `0` if unsuccessful.
 
 ---
 
-### Project.removeUnusedFootage()
+### Project.createNewSequenceFromClips()
 
-`app.project.removeUnusedFootage()`
+`app.project.createNewSequenceFromClips(sequenceName, arrayOfProjectItems, [destinationBin])`
 
 #### Description
 
-Removes unused footage from the project. Same as the File > Remove Unused Footage command.
+Creates a new [Sequence object](../sequence/sequence.md) with the given name, in the specified destination bin, and sequentially inserts project items into it.
+
+#### Parameters
+
+|       Parameter       |                          Type                          |                       Description                       |
+| --------------------- | ------------------------------------------------------ | ------------------------------------------------------- |
+| `sequenceName`        | String                                                 | Optional. A name for a new sequence.                    |
+| `arrayOfProjectItems` | Array of [ProjectItem objects](../item/projectitem.md) | An array of project items to be inserted into sequence. |
+| `destinationBin`      | [ProjectItem object](../item/projectitem.md)           | Optional. A bin to contain sequence.                    |
+
+#### Returns
+
+Returns the newly-created [Sequence object](../sequence/sequence.md) if successful; 0 if unsuccessful.
+
+---
+
+### Project.deleteSequence()
+
+`app.project.deleteSequence(sequence)`
+
+#### Description
+
+Deletes the specified [Sequence object](../sequence/sequence.md) from the project.
+
+#### Parameters
+
+| Parameter  |                    Type                    |      Description      |
+| ---------- | ------------------------------------------ | --------------------- |
+| `sequence` | [Sequence object](../sequence/sequence.md) | A sequence to delete. |
+
+#### Returns
+
+Returns `true` if successful, `false` if unsuccessful.
+
+---
+
+### Project.exportAAF()
+
+`app.project.exportAAF(sequenceToExport, outputPath, mixdownVideo, explodeToMono, sampleRate, bitsPerSample, embedAudio, audioFileFormat, trimSources, handleFrames, presetPath, renderAudioEffects, includeClipCopies, preserveParentFolder)`
+
+#### Description
+
+Exports an AAF file of the specified [Sequence object](../sequence/sequence.md), using the specified settings.
+
+#### Parameters
+
+|       Parameter        |                    Type                    |                                 Description                                  |
+| ---------------------- | ------------------------------------------ | ---------------------------------------------------------------------------- |
+| `sequenceToExport`     | [Sequence object](../sequence/sequence.md) | A sequence to export.                                                        |
+| `outputPath`           | String                                     | An output path for .aaf file.                                                |
+| `mixdownVideo`         | Integer                                    | If `1`, render video before export.                                          |
+| `explodeToMono`        | Integer                                    | If `1`, breaks out stereo tracks to mono.                                    |
+| `sampleRate`           | Integer                                    | The sample rate of output audio.                                             |
+| `bitsPerSample`        | Integer                                    | The bits per sample of audio output.                                         |
+| `embedAudio`           | Integer                                    | If `1`, audio is embedded, if `0`, external.                                 |
+| `audioFileFormat`      | Integer                                    | `0` is AIFF, `1` is WAV.                                                     |
+| `trimSources`          | Integer                                    | If `1`, trim and re-encode media before export; `0` exports the entire file. |
+| `handleFrames`         | Integer                                    | The number of handle frames (from 0 to 1000).                                |
+| `presetPath`           | String                                     | A path to export preset (.epr) file.                                         |
+| `renderAudioEffects`   | Integer                                    | If `1`, render audio effects before export.                                  |
+| `includeClipCopies`    | Integer                                    | If `1`, include each copy of a clip.                                         |
+| `preserveParentFolder` | Integer                                    | If `1`, preserves the parent folder, in output.                              |
+
+#### Returns
+
+Returns `0` if successful.
+
+---
+
+### Project.exportFinalCutProXML()
+
+`app.project.exportFinalCutProXML(outputPath, suppressUI)`
+
+#### Description
+
+Exports an FCP XML representation of the entire project, to the specified output path.
+
+#### Parameters
+
+|  Parameter   |  Type   |                           Description                           |
+| ------------ | ------- | --------------------------------------------------------------- |
+| `outputPath` | String  | An output path for .xml file.                                   |
+| `suppressUI` | Integer | If `1`, no warnings or alerts will be shown, during the export. |
+
+#### Returns
+
+Returns `0` if successful.
+
+---
+
+### Project.exportOMF()
+
+`app.project.exportOMF(sequence, outputPath, omfTitle, sampleRate, bitsPerSample, audioEncapsulated, audioFileFormat, trimAudioFiles, handleFrames, includePan)`
+
+#### Description
+
+Exports an OMF file of the specified [Sequence object](../sequence/sequence.md), using the specified settings.
+
+#### Parameters
+
+|      Parameter      |                    Type                    |                 Description                  |
+| ------------------- | ------------------------------------------ | -------------------------------------------- |
+| `sequence`          | [Sequence object](../sequence/sequence.md) | The sequence to be output.                   |
+| `filePath`          | String                                     | An output path for .omf file.                |
+| `omfTitle`          | String                                     | The title of the OMF.                        |
+| `sampleRate`        |                                            | The sample rate of output audio.             |
+| `bitsPerSample`     |                                            | The bits per sample of audio output.         |
+| `audioEncapsulated` | Integer                                    | If `1`, audio is embedded, if `0`, external. |
+| `audioFileFormat`   | Integer                                    | `0` is AIFF, `1` is WAV.                     |
+| `trimAudioFiles`    | Integer                                    | `1` means yes, trim audio files.             |
+| `handleFrames`      | Integer                                    | Number of handle frames (from 0 to 1000).    |
+| `includePan`        | Integer                                    | `1` means include pan info; `0` means don't. |
+
+#### Returns
+
+Returns `0` if successful.
+
+---
+
+### Project.exportTimeline()
+
+`app.project.exportTimeline(exportControllerName)`
+
+#### Description
+
+Exports the currently active [Sequence object](../sequence/sequence.md), using an Export Controller plug-in with the specified name.
+
+#### Parameters
+
+|       Parameter        |  Type  |                                                                       Description                                                                        |
+| ---------------------- | ------ | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `exportControllerName` | String | The name of the Export Controller plug-in to be used. To use the Premiere Pro SDK example Export Controller, the value would be "SDK Export Controller". |
+
+#### Returns
+
+Returns `0` if successful, or an error code if not.
+
+---
+
+### Project.getGraphicsWhiteLuminance()
+
+`app.project.getGraphicsWhiteLuminance()`
+
+#### Description
+
+Retrieves the current graphics white luminance value, for this project.
 
 #### Parameters
 
@@ -896,79 +382,281 @@ None.
 
 #### Returns
 
-Integer; the total number of FootageItem objects removed.
+Returns the currently selected graphics white value.
 
 ---
 
-### Project.replaceFont()
+### Project.getInsertionBin()
 
-`app.project.replaceFont(fromFont, toFont, [noFontLocking = false])`
-
-!!! note
-    This functionality was added in After Effects 24.5
+`app.project.getInsertionBin()`
 
 #### Description
 
-This function will replace all the usages of [Font object](../text/fontobject.md) `fromFont` with [Font object](../text/fontobject.md) `toFont`.
-
-This operation exposes the same mechanism and policy used for automatic font replacement of missing or substituted fonts and is therefore a complete and precise replacement, even on [TextDocuments](../text/textdocument.md) which have mixed styling, preserving the character range the `fromFont` was applied to.
-
-This operation is not undoable.
-
-The optional parameter `noFontLocking` controls what happens when the `toFont` has no glyphs for the text it is applied to. By default a fallback font will be selected which will have the necessary glyphs, but if this parameter is set to `true` then this fallback will not take place and missing glyphs will result. There is no way at the current time to detect or report this.
-
-Note that when `fromFont` is a substituted font and the `toFont` has the same font properties no fallback can occur and the parameter is ignored and treated as `true`.
-
-```javascript
-var fromFont = app.project.usedFonts[0].font;
-var fontList = app.fonts.getFontsByPostScriptName("TimesNewRomanPSMT");
-var toFont = fontList[0];
-var layerChanged = app.project.replaceFont(fromFont, toFont);
-```
+Returns a [ProjectItem object](../item/projectitem.md) referencing the bin into which import will occur.
 
 #### Parameters
 
-|    Parameter    |                 Type                 |          Description          |
-| --------------- | ------------------------------------ | ----------------------------- |
-| `fromFont`      | [Font object](../text/fontobject.md) | Font to be replaced.          |
-| `toFont`        | [Font object](../text/fontobject.md) | Font to replace it with.      |
-| `noFontLocking` | Boolean                              | Optional. Defaults to `false` |
+None.
 
 #### Returns
 
-Boolean. `true` if at least one Layer was changed.
+Returns a [ProjectItem object](../item/projectitem.md) if successful, `0` if not.
+
+---
+
+### Project.getProjectPanelMetadata()
+
+`app.project.getProjectPanelMetadata()`
+
+#### Description
+
+Returns the current layout of the Project panel.
+
+#### Parameters
+
+None.
+
+#### Returns
+
+Returns a String representing the current Project panel layout, or `0` if unsuccessful.
+
+---
+
+### Project.getSharedLocation()
+
+`app.project.getSharedLocation()`
+
+#### Description
+
+Returns the path to the location to which shared files are to be copied.
+
+#### Parameters
+
+None.
+
+#### Returns
+
+Returns a String containing the path.
+
+---
+
+### Project.getSupportedGraphicsWhiteLuminances()
+
+`app.project.getSupportedGraphicsWhiteLuminances()`
+
+#### Description
+
+Retrieves the supported graphics white luminance values, for this project.
+
+#### Parameters
+
+None.
+
+#### Returns
+
+Returns an array of graphics white settings supported by the project; Currently it returns (100, 203, 300)
+
+---
+
+### Project.importAEComps()
+
+`app.project.importAEComps(path, compNames, [targetBin])`
+
+#### Description
+
+Imports specified Compositions (by name) from the containing After Effects .aep project file. You can specify a target bin within the containing project; otherwise, the Compositions will appear in the most recently targeted bin, within this project.
+
+#### Parameters
+
+|  Parameter  |                     Type                     |                             Description                             |
+| ----------- | -------------------------------------------- | ------------------------------------------------------------------- |
+| `path`      | String                                       | A path to the After Effects .aep project file.                      |
+| `compNames` | Array of strings                             | Names of compositions within the specified project, to be imported. |
+| `targetBin` | [ProjectItem object](../item/projectitem.md) | Optional. The destination bin for this import.                      |
+
+#### Returns
+
+Returns `0` if successful.
+
+---
+
+### Project.importAllAEComps()
+
+`app.project.importAllAEComps(path, [targetBin])`
+
+#### Description
+
+Imports specified Compositions (by name) from the containing After Effects .aep project file. You can specify a target bin within the containing project; otherwise, the Compositions will appear in the most recently targeted bin, within this project.
+
+#### Parameters
+
+|  Parameter  |                     Type                     |                  Description                   |
+| ----------- | -------------------------------------------- | ---------------------------------------------- |
+| `path`      | String                                       | A path to After Effects .aep project file.     |
+| `targetBin` | [ProjectItem object](../item/projectitem.md) | Optional. The destination bin for this import. |
+
+#### Returns
+
+Returns `0` if successful.
+
+---
+
+### Project.importFiles()
+
+`app.project.importFiles(filePaths, suppressUI, targetBin, importAsNumberedStills)`
+
+#### Description
+
+Imports media from the specified file paths.
+
+#### Parameters
+
+|        Parameter         |                     Type                     |                                  Description                                   |
+| ------------------------ | -------------------------------------------- | ------------------------------------------------------------------------------ |
+| `filePaths`              | Array of strings                             | An array of the file paths to be imported.                                     |
+| `suppressUI`             | Boolean                                      | Whether warning dialogs should be suppressed.                                  |
+| `targetBin`              | [ProjectItem object](../item/projectitem.md) | The bin into which the files should be imported.                               |
+| `importAsNumberedStills` | Boolean                                      | Whether the file paths should be interpreted as a sequence of numbered stills. |
+
+#### Returns
+
+Returns `true` if successful, `false` if not.
+
+---
+
+### Project.importSequences()
+
+`app.project.importSequences(path, sequenceIDs)`
+
+#### Description
+
+Imports an array of [sequence](../sequence/sequence.md) objects (with specified sequenceIDs), from the specified project, into the current project.
+
+#### Parameters
+
+|   Parameter   |  Type  |             Description             |
+| ------------- | ------ | ----------------------------------- |
+| `path`        | String | A path to a project file.           |
+| `sequenceIDs` | Array  | An array of sequence IDs to import. |
+
+#### Returns
+
+Returns `0` if successful.
+
+---
+
+### Project.isSharedLocationCopyEnabled()
+
+`app.project.isSharedLocationCopyEnabled()`
+
+#### Description
+
+Determines whether copying to a shared location is enabled, for this project.
+
+#### Parameters
+
+None.
+
+#### Returns
+
+Returns  `true` if copying is enabled; `false` if not.
+
+---
+
+### Project.newBarsAndTone()
+
+`app.project.newBarsAndTone(width, height, timeBase, PARNum, PARDen, audioSampleRate, name)`
+
+#### Description
+
+Creates a new [Sequence object](../sequence/sequence.md) with the given name, based on the specified preset (.sqpreset file).
+
+#### Parameters
+
+|     Parameter     |  Type   |            Description             |
+| ----------------- | ------- | ---------------------------------- |
+| `width`           | Integer |                                    |
+| `height`          | Integer |                                    |
+| `timeBase`        |         | A timebase for a new project item. |
+| `PARNum`          | Integer | Pixel aspect ration numerator.     |
+| `PARDen`          | Integer | Pixel aspect ration denominator.   |
+| `audioSampleRate` |         | Audio sample rate.                 |
+| `name`            | String  | Name for a new project item.       |
+
+#### Returns
+
+Returns a [ProjectItem object](../item/projectitem.md) for the new bars and tone, or `0` if unsuccessful.
+
+---
+
+### Project.newSequence()
+
+`app.project.newSequence(name, pathToSequencePreset)`
+
+#### Description
+
+Creates a new [Sequence object](../sequence/sequence.md) with the given name, based on the specified preset (.sqpreset file).
+
+#### Parameters
+
+|       Parameter        |  Type  |            Description             |
+| ---------------------- | ------ | ---------------------------------- |
+| `name`                 | String | Name for a new sequence.           |
+| `pathToSequencePreset` | String | A path to a preset .sqpreset file. |
+
+#### Returns
+
+Returns a [Sequence object](../sequence/sequence.md), or `0` if unsuccessful.
+
+---
+
+### Project.openSequence()
+
+`app.project.openSequence(sequence.sequenceID)`
+
+#### Description
+
+Makes the [Sequence object](../sequence/sequence.md) with the provided sequence ID, active. This will open the sequence in the Timeline panel.
+
+#### Parameters
+
+|  Parameter   |                               Type                                |                Description                 |
+| ------------ | ----------------------------------------------------------------- | ------------------------------------------ |
+| `sequenceID` | [Sequence.sequenceID](../sequence/sequence.md#sequencesequenceid) | A valid sequence ID that should be opened. |
+
+#### Returns
+
+Returns `true` if successful, `false` if not.
+
+---
+
+### Project.pauseGrowing()
+
+`app.project.pauseGrowing(pause)`
+
+#### Description
+
+Pauses (and resumes) growing file capture.
+
+#### Parameters
+
+| Parameter |  Type   |            Description             |
+| --------- | ------- | ---------------------------------- |
+| `pause`   | Integer | If `1`, growing files are enabled. |
+
+#### Returns
+
+Returns `0` if successful.
 
 ---
 
 ### Project.save()
 
-`app.project.save([file])`
+`app.project.save()`
 
 #### Description
 
-Saves the project. The same as the File > Save or File > Save As command. If the project has never previously been saved and no file is specified, prompts the user for a location and file name.
-
-Pass a [File](https://extendscript.docsforadobe.dev/file-system-access/file-object.html) object to save a project to a new file without prompting.
-
-#### Parameters
-
-| Parameter |                                              Type                                              |         Description         |
-| --------- | ---------------------------------------------------------------------------------------------- | --------------------------- |
-| `file`    | [Extendscript File](https://extendscript.docsforadobe.dev/file-system-access/file-object.html) | Optional. The file to save. |
-
-#### Returns
-
-None.
-
----
-
-### Project.saveWithDialog()
-
-`app.project.saveWithDialog()`
-
-#### Description
-
-Shows the Save dialog box. The user can name a file with a location and save the project, or click Cancel to exit the dialog box.
+Saves the project, at its current path.
 
 #### Parameters
 
@@ -976,359 +664,122 @@ None.
 
 #### Returns
 
-Boolean; `true` if the project was saved.
+Returns `0` if successful.
 
 ---
 
-### Project.setDefaultImportFolder()
+### Project.saveAs()
 
-`app.project.setDefaultImportFolder(folder)`
+`app.project.saveAs(path)`
 
 #### Description
 
-Sets the folder that will be shown in the file import dialog. This location will be used as an override until setDefaultImportFolder() is called with no parameters, or until After Effects is quit.
+Exports the current project to a new unique file path, opens the project from the new location, and closes the previously-opened (and identical) project.
 
 #### Parameters
 
-| Parameter |                                                Type                                                |       Description        |
-| --------- | -------------------------------------------------------------------------------------------------- | ------------------------ |
-| `folder`  | [Extendscript Folder](https://extendscript.docsforadobe.dev/file-system-access/folder-object.html) | Folder to set as default |
+| Parameter |  Type  |      Description      |
+| --------- | ------ | --------------------- |
+| `path`    | String | A path to a new file. |
 
 #### Returns
 
-Boolean; indicates if the operation was successful.
-
-#### Examples
-
-Any of the following will set the default import folder to C:/My Folder:
-
-* `var myFolder = new Folder("C:/My Folder"); app.project.setDefaultImportFolder(myFolder);`
-* `app.project.setDefaultImportFolder(new Folder("C:/My Folder"));`
-* `app.project.setDefaultImportFolder(Folder("C:/My Folder"));`
-
-Note: if the path refers to an existing file and not a folder, the Folder function returns a File object instead of a Folder object, which will cause `setDefaultImportFolder()` to return `false`.
-
-To set the default import folder to the current user's desktop folder: `app.project.setDefaultImportFolder(Folder.desktop);`
-
-To disable the default folder, call `setDefaultImportFolder()` with no parameters: `app.project.setDefaultImportFolder();`
+Returns `0` if successful, or an error code if not.
 
 ---
 
-### Project.showWindow()
+### Project.setEnableTranscodeOnIngest()
 
-`app.project.showWindow(doShow)`
+`app.project.setEnableTranscodeOnIngest(state)`
 
 #### Description
 
-Shows or hides the Project panel.
+Controls the enablement of transcode-upon-ingest behavior, for the given project.
 
 #### Parameters
 
-| Parameter |  Type   |                                Description                                 |
-| --------- | ------- | -------------------------------------------------------------------------- |
-| `doShow`  | Boolean | When `true`, show the Project panel. When `false`, hide the Project panel. |
+| Parameter |  Type   |    Description     |
+| --------- | ------- | ------------------ |
+| `state`   | Boolean | The desired state. |
 
 #### Returns
 
-Nothing.
+Returns `true` if successful.
 
 ---
 
-## Team Projects
+### Project.setGraphicsWhiteLuminance()
 
-### Project.newTeamProject()
-
-`app.project.newTeamProject(teamProjectName, description)`
-
-!!! note
-    This functionality was added in After Effects 14.2 (CC 2017.1)
+`app.project.setGraphicsWhiteLuminance(value)`
 
 #### Description
 
-Creates a new team project.
+Sets the current graphics white luminance value, for this project.
 
 #### Parameters
 
-|     Parameter     |  Type  |          Description          |
-| ----------------- | ------ | ----------------------------- |
-| `teamProjectName` | String | Team project name             |
-| `description`     | String | Optional. Project description |
+| Parameter |  Type   |                                                                   Description                                                                   |
+| --------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| `value`   | Integer | The value to be used; must be a value provided by [Project.getSupportedGraphicsWhiteLuminances()](#projectgetsupportedgraphicswhiteluminances). |
 
 #### Returns
 
-Boolean. `true` if the team project is successfully created, otherwise `false`.
+Returns `true` if successful.
 
 ---
 
-### Project.openTeamProject()
+### Project.setProjectPanelMetadata()
 
-`app.project.openTeamProject(teamProjectName)`
-
-!!! note
-    This functionality was added in After Effects 14.2 (CC 2017.1)
+`app.project.setProjectPanelMetadata(layout)`
 
 #### Description
 
-Opens a team project.
+Returns the current layout of the Project panel.
 
 #### Parameters
 
-|     Parameter     |  Type  |    Description    |
-| ----------------- | ------ | ----------------- |
-| `teamProjectName` | String | Team project name |
+| Parameter |  Type  |                                                                                                               Description                                                                                                               |
+| --------- | ------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `layout`  | String | Represents the desired Project panel layout. Note: The only known method for generating a valid layout string, is setting the Project panel as desired then using [Project.getProjectPanelMetadata()](#projectgetprojectpanelmetadata). |
 
 #### Returns
 
-Boolean. `true` if the team project is successfully opened, otherwise `false`.
+Returns  `0` if unsuccessful.
 
 ---
 
-### Project.shareTeamProject()
+### Project.setScratchDiskPath()
 
-`app.project.shareTeamProject(comment)`
-
-!!! note
-    This functionality was added in After Effects 14.2 (CC 2017.1)
+`app.project.setScratchDiskPath(newPath, whichScratchDiskPath)`
 
 #### Description
 
-Shares the currently open team project.
+Changes the specified scratch disk path to a new path.
 
 #### Parameters
 
-| Parameter |  Type  |    Description     |
-| --------- | ------ | ------------------ |
-| `comment` | String | Optional. Comment. |
++-------------------+------------------------+---------------------------------------------+
+|     Parameter     |          Type          |                 Description                 |
++===================+========================+=============================================+
+| `newPath`         | String                 | A new path.                                 |
++-------------------+------------------------+---------------------------------------------+
+| `scratchDiskType` | `ScratchDiskType` enum | One of:                                     |
+|                   |                        |                                             |
+|                   |                        | - `ScratchDiskType.FirstVideoCaptureFolder` |
+|                   |                        | - `ScratchDiskType.FirstAudioCaptureFolder` |
+|                   |                        | - `ScratchDiskType.FirstVideoPreviewFolder` |
+|                   |                        | - `ScratchDiskType.FirstAudioPreviewFolder` |
+|                   |                        | - `ScratchDiskType.FirstAutoSaveFolder`     |
+|                   |                        | - `ScratchDiskType.FirstCCLibrariesFolder`  |
+|                   |                        | - `ScratchDiskType.FirstCapsuleMediaFolder` |
+|                   |                        | - `ScratchDiskType.FirstAudioCaptureFolder` |
+|                   |                        | - `ScratchDiskType.FirstVideoPreviewFolder` |
+|                   |                        | - `ScratchDiskType.FirstAudioPreviewFolder` |
+|                   |                        | - `ScratchDiskType.FirstAutoSaveFolder`     |
+|                   |                        | - `ScratchDiskType.FirstCCLibrariesFolder`  |
+|                   |                        | - `ScratchDiskType.FirstCapsuleMediaFolder` |
++-------------------+------------------------+---------------------------------------------+
 
 #### Returns
 
-Boolean. `true` if the team project is successfully shared, otherwise `false`.
-
----
-
-### Project.syncTeamProject()
-
-`app.project.syncTeamProject()`
-
-!!! note
-    This functionality was added in After Effects 14.2 (CC 2017.1)
-
-#### Description
-
-Syncs the currently open team project.
-
-#### Returns
-
-Boolean. `true` if the team project is successfully synced, otherwise `false`.
-
----
-
-### Project.closeTeamProject()
-
-`app.project.closeTeamProject()`
-
-!!! note
-    This functionality was added in After Effects 14.2 (CC 2017.1)
-
-#### Description
-
-Closes a currently open team project.
-
-#### Returns
-
-Boolean. `true` if the team project is successfully closed, otherwise `false`.
-
----
-
-### Project.convertTeamProjectToProject()
-
-`app.project.convertTeamProjectToProject(project_file)`
-
-!!! note
-    This functionality was added in After Effects 14.2 (CC 2017.1)
-
-#### Description
-
-Converts a team project to an After Effects project on a local disk.
-
-#### Parameters
-
-|   Parameter    |                                              Type                                              |                                               Description                                               |
-| -------------- | ---------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
-| `project_file` | [Extendscript File](https://extendscript.docsforadobe.dev/file-system-access/file-object.html) | The local After Effects project. File extension should be either .aep or .aet (.aepx is not supported). |
-
-#### Returns
-
-Boolean. `true` if the team project is successfully converted, otherwise `false`.
-
----
-
-### Project.listTeamProjects()
-
-`app.project.listTeamProjects()`
-
-!!! note
-    This functionality was added in After Effects 14.2 (CC 2017.1)
-
-#### Description
-
-Returns an array containing the name strings for all team projects available for the current user.
-Archived Team Projects are not included.
-
-#### Returns
-
-Array of strings.
-
----
-
-### Project.isTeamProjectOpen()
-
-`app.project.isTeamProjectOpen(teamProjectName)`
-
-!!! note
-    This functionality was added in After Effects 14.2 (CC 2017.1)
-
-#### Description
-
-Checks whether specified team project is currently open.
-
-#### Parameters
-
-|     Parameter     |  Type  |    Description    |
-| ----------------- | ------ | ----------------- |
-| `teamProjectName` | String | Team project name |
-
-#### Returns
-
-Boolean. `true` if the specified team project is currently open, otherwise `false`.
-
----
-
-### Project.isAnyTeamProjectOpen()
-
-`app.project.isAnyTeamProjectOpen()`
-
-!!! note
-    This functionality was added in After Effects 14.2 (CC 2017.1)
-
-#### Description
-
-Checks whether any team project is currently open.
-
-#### Returns
-
-Boolean. `true` if any team project is currently open, otherwise `false`.
-
----
-
-### Project.isTeamProjectEnabled()
-
-`app.project.isTeamProjectEnabled()`
-
-!!! note
-    This functionality was added in After Effects 14.2 (CC 2017.1)
-
-#### Description
-
-Checks whether or not team project is enabled for After Effects. (This will almost always return `true`.)
-
-#### Returns
-
-Boolean. `true` if team project is currently enabled, otherwise `false`.
-
----
-
-### Project.isLoggedInToTeamProject()
-
-`app.project.isLoggedInToTeamProject()`
-
-!!! note
-    This functionality was added in After Effects 14.2 (CC 2017.1)
-
-#### Description
-
-Checks whether or not the client (After Effects) is currently logged into the team project server.
-
-#### Returns
-
-Boolean. `true` if the client (After Effects) is currently logged into the team projects server, otherwise `false`.
-
----
-
-### Project.isSyncCommandEnabled()
-
-`app.project.isSyncCommandEnabled()`
-
-!!! note
-    This functionality was added in After Effects 14.2 (CC 2017.1)
-
-#### Description
-
-Checks whether or not the Sync command is enabled.
-
-#### Returns
-
-Boolean. `true` if the team projects Sync command is enabled, otherwise `false`.
-
----
-
-### Project.isShareCommandEnabled()
-
-`app.project.isShareCommandEnabled()`
-
-!!! note
-    This functionality was added in After Effects 14.2 (CC 2017.1)
-
-#### Description
-
-Checks whether or not the Share command is enabled.
-
-#### Returns
-
-Boolean. `true` if the team projects Share command is enabled, otherwise `false`.
-
----
-
-### Project.isResolveCommandEnabled()
-
-`app.project.isResolveCommandEnabled()`
-
-!!! note
-    This functionality was added in After Effects 14.2 (CC 2017.1)
-
-#### Description
-
-Checks whether or not the Resolve command is enabled.
-
-#### Returns
-
-Boolean. `true` if the team projects Resolve command is enabled, otherwise `false`.
-
----
-
-### Project.resolveConflict()
-
-`app.project.resolveConflict(ResolveType)`
-
-!!! note
-    This functionality was added in After Effects 14.2 (CC 2017.1)
-
-#### Description
-
-Resolves a conflict between the open team project and the version on the team projects server, using the specified resolution method.
-
-#### Parameters
-
-+---------------+--------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------+
-|   Parameter   |        Type        |                                                                      Description                                                                       |
-+===============+====================+========================================================================================================================================================+
-| `ResolveType` | `ResolveType` enum | The type of conflict resolution to use. One of:                                                                                                        |
-|               |                    |                                                                                                                                                        |
-|               |                    | - `ResolveType.ACCEPT_THEIRS`: Take the shared version. The shared version replaces your version.                                                      |
-|               |                    | - `ResolveType.ACCEPT_YOURS`: Keep your version of the project. The shared version is not taken.                                                       |
-|               |                    | - `ResolveType.ACCEPT_THEIRS_AND_COPY`: Copy and rename your version, then take the shared version. The shared version replaces your original version. |
-+---------------+--------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------+
-
-#### Returns
-
-Boolean. `true` if the resolution of the specified type was successful, otherwise `false`.
+Returns  `0` if unsuccessful.

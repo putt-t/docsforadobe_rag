@@ -1,97 +1,58 @@
 {
-  "general": {
-    "count": 116,
+  "application": {
+    "count": 39,
     "files": [
-      "project.md",
-      "system.md",
-      "application.md",
-      "globals.md"
+      "application.md"
+    ]
+  },
+  "general": {
+    "count": 121,
+    "files": [
+      "metadata.md",
+      "projectmanager.md",
+      "properties.md",
+      "encoder.md",
+      "production.md",
+      "sourcemonitor.md",
+      "marker.md",
+      "anywhere.md",
+      "project.md"
     ]
   },
   "item": {
+    "count": 78,
+    "files": [
+      "trackitem.md",
+      "projectitem.md"
+    ]
+  },
+  "sequence": {
     "count": 86,
     "files": [
-      "avitem.md",
-      "folderitem.md",
-      "footageitem.md",
-      "itemcollection.md",
-      "compitem.md",
-      "item.md"
-    ]
-  },
-  "layer": {
-    "count": 150,
-    "files": [
-      "layercollection.md",
-      "threedmodellayer.md",
-      "3dlayer.md",
-      "layerstyles.md",
-      "lightlayer.md",
-      "avlayer.md",
-      "layer.md",
-      "shapelayer.md",
-      "textlayer.md",
-      "cameralayer.md"
-    ]
-  },
-  "property": {
-    "count": 98,
-    "files": [
-      "maskpropertygroup.md",
-      "propertygroup.md",
-      "propertybase.md",
-      "property.md"
-    ]
-  },
-  "renderqueue": {
-    "count": 51,
-    "files": [
-      "renderqueue.md",
-      "omcollection.md",
-      "renderqueueitem.md",
-      "rqitemcollection.md",
-      "outputmodule.md"
-    ]
-  },
-  "sources": {
-    "count": 21,
-    "files": [
-      "filesource.md",
-      "footagesource.md",
-      "solidsource.md",
-      "placeholdersource.md"
-    ]
-  },
-  "text": {
-    "count": 130,
-    "files": [
-      "fontobject.md",
-      "composedlinerange.md",
-      "textdocument.md",
-      "characterrange.md",
-      "fontsobject.md",
-      "paragraphrange.md"
+      "component.md",
+      "sequence.md",
+      "track.md",
+      "componentparam.md"
     ]
   },
   "other": {
-    "count": 73,
+    "count": 9,
     "files": [
-      "preferences.md",
-      "view.md",
-      "collection.md",
-      "keyframeease.md",
-      "viewoptions.md",
-      "importoptions.md",
-      "shape.md",
-      "settings.md",
-      "viewer.md",
-      "markervalue.md"
+      "time.md",
+      "audiochannelmapping.md"
     ]
   },
-  "effects": {
-    "count": 23,
+  "collection": {
+    "count": 15,
     "files": [
-      "firstparty.md"
+      "trackcollection.md",
+      "componentcollection.md",
+      "markercollection.md",
+      "trackitemcollection.md",
+      "projectitemcollection.md",
+      "sequencecollection.md",
+      "projectcollection.md",
+      "collection.md"
     ]
   }
 }

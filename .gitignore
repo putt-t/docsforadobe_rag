@@ -1,6 +1,4 @@
 
-
-mkdocs.yml
-
 .env
 docs/.DS_Store
+backend/old
